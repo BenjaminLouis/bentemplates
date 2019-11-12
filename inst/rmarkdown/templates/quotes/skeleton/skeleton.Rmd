@@ -1,0 +1,67 @@
+---
+output:
+  pagedown::html_letter:
+    self_contained: false
+    css: ["default","default-fonts","custom_quotes.css"]
+params:
+  info:
+    value:
+      date: NA
+      doc: "Facture"
+      ndoc: "N0001"
+      nclient: "C0001"
+  config:
+    value:
+      name: "Company name<br/> Services"
+      address1: "1 rue fictive"
+      address2: "test"
+      postal_code: "01000"
+      city: "Testcity"
+      mobile: "+33(0)6 00 00 00 00"
+      e_mail: "contact@email.com"
+      web: "www.siteweb.com"
+      siret: "xxxxxxxxxxxxxxxxxx"
+  logo: 
+    value:
+      yes: TRUE
+      file: "logo_template.png"
+      width: 35mm
+  client:
+    value:
+      firstname: "firstname"
+      name: "name"
+      company: NA
+      department: NA
+      address1: "1 rue fictive"
+      address2: "test"
+      postal_code: "01000"
+      city: "Testcity"
+      mobile: "+33(0)6 00 00 00 00"
+      e_mail: "contact@email.com"
+  comment: "Some comments"
+  services:
+    value:
+      data: NA
+      totdata: NA
+      tva: "no"
+  bankinfo:
+    value:
+      holder: "HOLDER"
+      bank: "Bank of fake"
+      bic: "CCHAJUSAHXX"
+      iban: "FR** **** **** **** **** **** ***"
+  annexes:
+    value:
+      isannexes: "No"
+      pathannexes: ""
+---
+
+::: logo
+![](`r params$logo$file`)
+
+`r paste0(`
+:::
+
+::: ndoc
+`r paste0("Devis n° ", params$info$ndoc)`
+:::
