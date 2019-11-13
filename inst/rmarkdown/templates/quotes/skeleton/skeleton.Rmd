@@ -10,21 +10,21 @@ params:
       doc: "Facture"
       ndoc: "N0001"
       nclient: "C0001"
-  config:
+  freelance:
     value:
-      name: "Company name<br/> Services"
-      address1: "1 rue fictive"
-      address2: "test"
-      postal_code: "01000"
-      city: "Testcity"
-      mobile: "+33(0)6 00 00 00 00"
-      e_mail: "contact@email.com"
-      web: "www.siteweb.com"
-      siret: "xxxxxxxxxxxxxxxxxx"
+      name: NA
+      address1: "2 rue du Rampeau"
+      address2: "Laroche"
+      postal_code: "43360"
+      city: "Bournoncle-Saint-Pierre"
+      mobile: "+33(0)6 47 94 72 38"
+      e_mail: "contact@benjaminlouis-stat.fr"
+      web: "www.benjaminlouis-stat.fr"
+      siret: "831 872 916 00026"
   logo: 
     value:
       yes: TRUE
-      file: "logo_template.png"
+      file: "logo_name.png"
       width: 35mm
   client:
     value:
@@ -56,12 +56,79 @@ params:
       pathannexes: ""
 ---
 
-::: logo
-![](`r params$logo$file`)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE,
+                      error = FALSE)
+library(bentemplates)
+```
 
-`r paste0(`
+
+::: doc
+`r params$info$doc`
 :::
 
 ::: ndoc
 `r paste0("Devis n° ", params$info$ndoc)`
 :::
+
+
+---
+#######################################
+############# HEADER ##################
+#######################################
+---
+
+<div class = "header">
+
+---
+# Freelance info
+---
+<div class = "freelance">
+<div class = "logo">
+![](`r params$logo$file`)
+
+`r process_freelance(params$freelance)`
+</div>
+</div>
+
+---
+# Document info
+---
+<div class = "info-box-date boxheader">
+`r process_boxheader(params$info, which = 1)`
+</div>
+<div class = "info-box-ndoc boxheader">
+`r process_boxheader(params$info, which = 2)`
+</div>
+<div class = "info-box-client boxheader">
+`r process_boxheader(params$info, which = 3)`
+</div>
+
+---
+# Client info
+---
+<div class = "address">
+<div class = "box">
+`r process_address(params$client, col_name = "Client")`
+</div>
+</div>
+
+</div>
+
+
+---
+#######################################
+############### MAIN ##################
+#######################################
+---
+
+
+
+---
+#######################################
+############# FOOTER ##################
+#######################################
+---
+

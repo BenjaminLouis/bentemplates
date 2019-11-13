@@ -1,3 +1,6 @@
+/* GENERALS */
+/*----------*/
+
 body {
   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, 'Source Han Serif', 'Songti SC', serif;
   line-height: 1.5em;
@@ -7,36 +10,147 @@ body {
   display: none;
 }
 
-.from, .date {
-  text-align: right;
+/*########################*/
+/*      GRID SYSTEM       */
+/*########################*/
+
+/* HEADER */
+/*--------*/
+
+.header {
+  display: inline-grid;
+  height: 9cm;
+  width: 100%;
+  grid-template-columns: [col1-start] 8fr [col1-end col2-start] 2fr [col2-end col3-start] 4fr [col3-end col4-start] 4fr [col4-end col5-start] 4fr [col5-end col6-start] 1fr [col6-end];
+  grid-template-rows: [row1-start] 1fr [row1-end row2-start] 2fr [row2-end row3-start] 1fr [row3-end row4-start] 2fr [row4-end row5-start] 2fr [row5-end row6-start] 1fr [row6-end];
 }
-.from p {
-  text-align: left;
+
+.header tr {
+  background: none;
+}
+
+.header thead {
+  background: none;
+  font-size: 110%;
+}
+
+
+/* Freelance item */
+
+.freelance {
+  grid-column: col1-start / col1-end;
+  grid-row: row1-start / row4-end;
+}
+
+/* Document info item */
+
+.info-box-date {
+  grid-column: col3-start / col3-end;
+  grid-row: row2-start / row2-end;
+}
+
+.info-box-ndoc {
+  grid-column: col4-start / col4-end;
+  grid-row: row2-start / row2-end;
+}
+
+.info-box-client {
+  grid-column: col5-start / col5-end;
+  grid-row: row2-start / row2-end;
+}
+
+.boxheader {
+  border: 1px solid black;
+  border-radius: 15px;
   display: inline-block;
+  width: 30mm;
+  height: 17mm;
+  margin: 0;
+  margin-top: 10mm;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.logo {
-  position: running(header-logo);
-  height: 1cm;
+.boxheader > p {
+  line-height: 0;
+  font-size: 10pt;
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
-.date {
-  margin-top: 4em;
+/* Address item */
+
+.address {
+  grid-column: col3-start / col5-end;
+  grid-row: row4-start / row4-end;
+  justify-self: center;
+  margin: 0;
+  padding: 0;
+  font-size: 10pt;
+  line-height: 15px;
+  min-width: 7cm;
+}
+
+
+.address table {
+  margin: 0;
+  padding: 0 10px;
+  float: left;
+}
+
+
+.box {
+  display: inline-block;
+  height: auto;
+  margin-top: 10mm;
+  margin-bottom: 1mm;
+  padding-top: 3mm;
+  padding-bottom: 3mm;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: rgba(106, 174, 122, 1);
+  min-width: 5cm;
+}
+
+.box p {
+  line-height: 4mm;
+  font-size: 10pt;
+  text-align: left;
+  padding: 0 3mm;
+  margin: 1mm;
+}
+
+/* MAIN */
+/*------*/
+
+/* FOOTNOTE */
+/*----------*/
+
+
+
+/*########################*/
+/*     RUNNING ELEMENT    */
+/*########################*/
+
+
+/* DOC */
+/*----------------*/
+
+.doc {
+  position: running(doc);
 }
 
 .ndoc {
   position: running(ndoc);
-  height: 1.5em;
-  width: 15em;
 }
 
 /*--------------------------------------------------------------------------------*/
 @page {
   size: A4;
-  margin: 2cm 3cm;
-  @top-left {
-    content: element(header-logo);
-  }
+  margin: 1cm 1cm;
+  background: no-repeat white center/80% url("logo.png");
   @bottom-right {
     content: "Page " counter(page) "/" counter(pages);
   }
@@ -45,8 +159,53 @@ body {
   }
 }
 
+@page :first {
+  @top-center {
+    content: "";
+  }
+  @top-right {
+    content: element(doc);
+    vertical-align: bottom;
+    text-transform: uppercase;
+    font-size: 23pt;
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
 @media (min-width: 12.32in) {
   .pagedjs_page, .pagedjs_first_page {
     margin: auto auto 5mm auto;
   }
+}
+
+/* LOGO */
+/*------*/
+
+.logo img {
+  width: 35mm;
+}
+
+.logo {
+  margin: 0;
+  padding: 0;
+  font-size: 9pt;
+  line-height: 12px;
+}
+
+/* TABLE */
+/* ----- */
+
+table {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+td {
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+  background: none;
 }

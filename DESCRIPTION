@@ -1,9 +1,23 @@
 Package: bentemplates
 Title: RMarkdown templates
 Version: 0.0.0.9000
-Authors@R: person("Benjamin", "Louis", email = "contact@benjaminlouis-stat.fr", role = c("aut", "cre"))
-Description: This pacakge contains some rmarkdown templates I use
-Depends: R (>= 3.6.0)
+Authors@R: 
+    person(given = "Benjamin",
+           family = "Louis",
+           role = c("aut", "cre"),
+           email = "contact@benjaminlouis-stat.fr")
+Description: This pacakge contains some rmarkdown templates I
+    use.
 License: MIT + file LICENSE
+Depends: 
+    R (>= 3.6.0)
+Imports: 
+    dplyr,
+    fontawesome,
+    kableExtra,
+    knitr,
+    magrittr,
+    tidyr
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1

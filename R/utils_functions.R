@@ -1,22 +1,36 @@
-#' Concatenate strings and ignore missing values
+#' Make first letter uppersase
 #'
-#' @param ... several string values
+#' @param st a string value
 #'
-#' @return Concatenated strings given as input with space delimiter. A missing
-#' value (\code{NA}) is simply ignored. If all niputs are \code{NA}'s, \code{NA} is
-#' returned
+#' @return The same string with the first letter as uppercase
+#' @export
+#'
+#'
+#' @examples
+#' up_first("hello")
+up_first <- function(st) {
+  vapply(st, function(x) gsub("^.{1}", toupper(substr(x, 1, 1)), x), FUN.VALUE = NA_character_, USE.NAMES = FALSE)
+}
+
+
+
+#' Remove header of a HTML table
+#'
+#' @param x a HTML table with <thead> header tags
+#'
+#' @return the same HTML table but without the header part
 #' @export
 #'
 #' @examples
-#' concatenate("Hello", NA, "world", NA)
-#' concatenate(NA, NA)
-concatenate <- function(...) {
-  st <- glue(..., .na = "", .sep = " ")
-  st <- gsub("\\s{2,}", " ", st)
-  st <- gsub("(^\\s+)|(\\s+$)", "", st)
-  st <- gsub("^$", NA, st)
-  return(st)
-}
+#' library(knitr)
+#' tab <- kable(iris, format = "html")
+#' tab
+#'
+#' #Removing header
+#' remove_header(tab)
+#'
+remove_header <- function(x) { gsub("<thead>.*</thead>", "", x) }
+
 
 
 #' Transform a number into a string representing the number with two decimals,
