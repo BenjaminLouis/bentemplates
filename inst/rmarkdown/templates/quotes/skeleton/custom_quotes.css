@@ -14,24 +14,35 @@ body {
 /*      GRID SYSTEM       */
 /*########################*/
 
+
+/* HEADER */
+/*--------*/
+.wrapper {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto
+}
+
 /* HEADER */
 /*--------*/
 
-.header {
-  display: inline-grid;
+.doc-header {
+  display: grid;
   height: 9cm;
   width: 100%;
   grid-template-columns: [col1-start] 8fr [col1-end col2-start] 2fr [col2-end col3-start] 4fr [col3-end col4-start] 4fr [col4-end col5-start] 4fr [col5-end col6-start] 1fr [col6-end];
   grid-template-rows: [row1-start] 1fr [row1-end row2-start] 2fr [row2-end row3-start] 1fr [row3-end row4-start] 2fr [row4-end row5-start] 2fr [row5-end row6-start] 1fr [row6-end];
+  grid-column: 1/1
+  grid-row: 1/1
 }
 
-.header tr {
+.doc-header tr {
   background: none;
 }
 
-.header thead {
+.doc-header thead {
   background: none;
-  font-size: 110%;
+  font-size: 115;
 }
 
 
@@ -74,7 +85,7 @@ body {
 
 .boxheader > p {
   line-height: 0;
-  font-size: 10pt;
+  font-size: 11pt;
   text-align: center;
   font-weight: bold;
   vertical-align: middle;
@@ -88,7 +99,7 @@ body {
   justify-self: center;
   margin: 0;
   padding: 0;
-  font-size: 10pt;
+  font-size: 11pt;
   line-height: 15px;
   min-width: 7cm;
 }
@@ -104,7 +115,7 @@ body {
 .box {
   display: inline-block;
   height: auto;
-  margin-top: 10mm;
+  margin-top: 5mm;
   margin-bottom: 1mm;
   padding-top: 3mm;
   padding-bottom: 3mm;
@@ -116,7 +127,7 @@ body {
 
 .box p {
   line-height: 4mm;
-  font-size: 10pt;
+  font-size: 11pt;
   text-align: left;
   padding: 0 3mm;
   margin: 1mm;
@@ -125,8 +136,59 @@ body {
 /* MAIN */
 /*------*/
 
+.doc-main {
+  display: grid;
+  height: auto;
+  width: 100%;
+  grid-template-columns: [col1-start] 40fr [col1-end col2-start] 13fr [col2-end col3-start] 11fr [col3-end col4-start] 20fr [col4-end col5-start] 16fr [col5-end];
+  grid-template-rows: [row1-start] auto [row1-end row2-start] auto [row2-end row3-start] auto [row3-end];
+  grid-row-gap: 15px;
+  grid-column: 1/1
+  grid-row: 2/2
+}
+
+.description {
+  grid-column: col1-start / col5-end;
+  grid-row: row1-start / row1-end;
+}
+
+.total {
+  grid-column: col4-start / col5-end;
+  grid-row: row2-start / row2-end;
+}
+
+.comments {
+  grid-column: col1-start / col5-end;
+  grid-row: row3-start / row3-end;
+}
+
 /* FOOTNOTE */
 /*----------*/
+
+
+.doc-footer {
+  display: flex;
+  height: auto;
+  width: 100%;
+  grid-column: 1/1;
+  grid-row: 3/-1;
+  position: absolute;
+  bottom: 0;
+}
+
+
+.footbox {
+  border: 1px solid black;
+  height: 35mm;
+  width: 90%;
+  vertical-align: top;
+}
+
+.footbox > p {
+  margin: 0;
+  padding: 1mm;
+}
+
 
 
 

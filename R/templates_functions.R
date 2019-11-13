@@ -77,3 +77,37 @@ process_address <- function(address, col_name = "Livraison") {
     kable(escape = FALSE)
 }
 
+
+#' Process descritpion of services table for HTML
+#'
+#' @param services services list from YAML params
+#' @param tva yes/no
+#'
+#' @importFrom dplyr bind_rows mutate_at vars matches mutate tibble
+#' @importFrom kableExtra column_spec
+#' @importFrom knitr kable
+#'
+#' @export
+#'
+process_services <- function(services, tva = "no") {
+  data <- tibble('D\u00e9signation' = NA,#character(),
+                 'Quantit\u00e9' = NA,#double(),
+                 'Unit\u00e9' = NA,#character(),
+                 'Prix unitaire' = NA,#double(),
+                 'Total' = NA)#double())
+  if (any(!(services$data %in% c("NA", ""))) & any(!is.na(services$data))) {
+    temp <- services$data
+    colnames(temp) <- colnames(data)
+    data <- bind_rows(data, temp)
+    data <- data[-1,]
+  }
+  data %>%
+    mutate_at(vars(matches('Prix unitaire')), parse_amount) %>%
+    mutate('Total' = parse_amount(Total)) %>%
+    kable(format = "html", escape = FALSE) %>%
+    column_spec(column = 1, width = "40%", extra_css = "text-align:justify;") %>%
+    column_spec(column = 2, width = "13%", extra_css = "text-align:right;") %>%
+    column_spec(column = 3, width = "11%", extra_css = "text-align:right;") %>%
+    column_spec(column = 4, width = "20%", extra_css = "text-align:right;") %>%
+    column_spec(column = 5, width = "16%", extra_css = "text-align:right;")
+}

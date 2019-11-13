@@ -73,6 +73,7 @@ library(bentemplates)
 `r paste0("Devis n° ", params$info$ndoc)`
 :::
 
+<div class = "wrapper">
 
 ---
 #######################################
@@ -80,7 +81,7 @@ library(bentemplates)
 #######################################
 ---
 
-<div class = "header">
+<div class = "doc-header">
 
 ---
 # Freelance info
@@ -124,6 +125,9 @@ library(bentemplates)
 #######################################
 ---
 
+<div class = "doc-main">
+
+</div>
 
 
 ---
@@ -132,3 +136,19 @@ library(bentemplates)
 #######################################
 ---
 
+<div class = "doc-footer">
+
+<div class = "footquote">
+Afin de valider ce devis, merci de le signer et le renvoyer à `r params$config$e_mail` :
+
+<div class = "footbox">
+Bon pour accord le :
+
+Signature :
+</div>
+
+</div>
+</div>
+
+
+</div>
