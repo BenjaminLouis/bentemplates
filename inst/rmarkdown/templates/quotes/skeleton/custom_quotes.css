@@ -140,11 +140,49 @@ body {
   display: grid;
   height: auto;
   width: 100%;
-  grid-template-columns: [col1-start] 40fr [col1-end col2-start] 13fr [col2-end col3-start] 11fr [col3-end col4-start] 20fr [col4-end col5-start] 16fr [col5-end];
+  grid-template-columns: [col1-start] 45fr [col1-end col2-start] 10fr [col2-end col3-start] 10fr [col3-end col4-start] 20fr [col4-end col5-start] 15fr [col5-end];
   grid-template-rows: [row1-start] auto [row1-end row2-start] auto [row2-end row3-start] auto [row3-end];
   grid-row-gap: 15px;
   grid-column: 1/1
   grid-row: 2/2
+}
+
+.doc-main table {
+  width: 100%;
+  border-collapse: collapse;
+  font-weight: bold;
+}
+
+.doc-main tbody {
+  border-top: 2px solid rgb(23,37,45);
+  border-bottom: 2px solid rgb(23,37,45);
+}
+
+.doc-main thead {
+  background-color: rgb(23,37,45);
+  color: rgb(230,230,230);
+  border-left: 2px solid rgb(23,37,45);
+  border-right: 2px solid rgb(23,37,45);
+}
+
+.doc-main th {
+  padding: 0 5px;
+}
+
+.doc-main td {
+  border-left: 2px solid rgb(23,37,45);
+  border-right: 2px solid rgb(23,37,45);
+  padding: 0 5px;
+}
+
+.doc-main tr:nth-child(even) {
+  background-color: rgba(106, 174, 122, 0.2);
+}
+
+.doc-main tfoot {
+  background: white;
+  font-size: 9pt;
+  text-align: right;
 }
 
 .description {
@@ -169,7 +207,7 @@ body {
 .doc-footer {
   display: flex;
   height: auto;
-  width: 100%;
+  width: 50%;
   grid-column: 1/1;
   grid-row: 3/-1;
   position: absolute;
@@ -208,11 +246,24 @@ body {
   position: running(ndoc);
 }
 
+
+
+
 /*--------------------------------------------------------------------------------*/
+/*
+:root {
+  --main-bg-image: attr(src);
+}*/
+
 @page {
   size: A4;
   margin: 1cm 1cm;
-  background: no-repeat white center/80% url("logo.png");
+  background-image: var(--main-bg-image);
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 80%;
+  background-position: center;
+  ba
   @bottom-right {
     content: "Page " counter(page) "/" counter(pages);
   }

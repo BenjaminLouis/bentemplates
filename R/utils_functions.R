@@ -44,8 +44,7 @@ remove_header <- function(x) { gsub("<thead>.*</thead>", "", x) }
 #' @examples
 #' parse_amount(pi)
 parse_amount <- function(x) {
-  x <- format(x, nsmall = 2, digits = 2)
-  x <- gsub("\\.", ",", x)
+  x <- format(x, nsmall = 2, digits = 2, decimal.mark = ",")
   x <- paste(x, "\u20AC")
   return(x)
 }

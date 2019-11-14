@@ -14,3 +14,4 @@ usethis::use_directory(("inst/rmarkdown/templates/quotes/skeleton"))
 # Dependencies
 usethis::use_pipe()
 attachment::att_to_description()
+

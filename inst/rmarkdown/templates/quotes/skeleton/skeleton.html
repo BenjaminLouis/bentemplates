@@ -18,7 +18,7 @@
 <meta name="description" content="skeleton.utf8.md">
 
 <script id="pandoc-meta" type="application/json">
-{"pagetitle":"skeleton.utf8.md","params":{"annexes":{"value":{"pathannexes":"","isannexes":"No"}},"bankinfo":{"value":{"holder":"HOLDER","bic":"CCHAJUSAHXX","iban":"FR** **** **** **** **** **** ***","bank":"Bank of fake"}},"logo":{"value":{"yes":true,"width":"35mm","file":"logo_name.png"}},"comment":"Some comments","services":{"value":{"totdata":"NA","data":"NA","tva":"no"}},"info":{"value":{"nclient":"C0001","doc":"Facture","ndoc":"N0001","date":"NA"}},"freelance":{"value":{"address2":"Laroche","postal_code":43360,"e_mail":"<a href=\"mailto:contact@benjaminlouis-stat.fr\" class=\"email\">contact@benjaminlouis-stat.fr</a>","name":"NA","city":"Bournoncle-Saint-Pierre","address1":"2 rue du Rampeau","web":"www.benjaminlouis-stat.fr","mobile":"+33(0)6 47 94 72 38","siret":"831 872 916 00026"}},"client":{"value":{"department":"NA","address2":"test","postal_code":1000,"e_mail":"<a href=\"mailto:contact@email.com\" class=\"email\">contact@email.com</a>","name":"name","company":"NA","city":"Testcity","address1":"1 rue fictive","firstname":"firstname","mobile":"+33(0)6 00 00 00 00"}}},"output":{"pagedown::html_letter":{"self_contained":false,"css":["default","default-fonts","custom_quotes.css"]}}}
+{"pagetitle":"skeleton.utf8.md","params":{"annexes":{"value":{"pathannexes":"","isannexes":"No"}},"discount":0,"bankinfo":{"value":{"holder":"HOLDER","bic":"CCHAJUSAHXX","iban":"FR** **** **** **** **** **** ***","bank":"Bank of fake"}},"deposit":0,"logos":{"value":{"company_file":"logo_name.png","backgound":true,"background_file":"logo.png","company":true}},"comment":"Some comments","tva":"No","services":{"value":{"quantity":"list(2, 1.5)","unitprice":"list(100, 50)","description":"list(‘service1’, ‘service2’)","unit":"NA"}},"info":{"value":{"nclient":"C0001","doc":"Facture","ndoc":"N0001","date":"NA"}},"freelance":{"value":{"address2":"Laroche","postal_code":43360,"e_mail":"<a href=\"mailto:contact@benjaminlouis-stat.fr\" class=\"email\">contact@benjaminlouis-stat.fr</a>","name":"NA","city":"Bournoncle-Saint-Pierre","address1":"2 rue du Rampeau","web":"www.benjaminlouis-stat.fr","mobile":"+33(0)6 47 94 72 38","siret":"831 872 916 00026"}},"client":{"value":{"department":"NA","address2":"test","postal_code":1000,"e_mail":"<a href=\"mailto:contact@email.com\" class=\"email\">contact@email.com</a>","name":"name","company":"NA","city":"Testcity","address1":"1 rue fictive","firstname":"firstname","mobile":"+33(0)6 00 00 00 00"}}},"output":{"pagedown::html_letter":{"self_contained":false,"css":["default","default-fonts","custom_quotes.css"]}}}
 </script>
 
 <title>skeleton.utf8.md</title>
@@ -59,6 +59,11 @@
 <div class="ndoc">
 <p>Devis n° N0001</p>
 </div>
+<style>
+:root {
+  --main-bg-image: url('logo.png');
+}
+</style>
 <div class = "wrapper">
 
 <div class = "doc-header">
@@ -140,7 +145,7 @@ Date
 </p>
 <hr>
 <p>
-13/11/2019
+14/11/2019
 </p>
 </div>
 <div class = "info-box-ndoc boxheader">
@@ -206,12 +211,93 @@ test
 </div>
 </div>
 </div>
-<div class="doc-main">
+<div class = "doc-main">
 
+<div class = "description">
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Désignation
+</th>
+<th style="text-align:left;">
+Quantité
+</th>
+<th style="text-align:left;">
+Unité
+</th>
+<th style="text-align:left;">
+Prix unit.
+</th>
+<th style="text-align:left;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 45%; text-align:justify;">
+service1
+</td>
+<td style="text-align:left;width: 10%; text-align:right;">
+2
+</td>
+<td style="text-align:left;width: 10%; text-align:right;">
+</td>
+<td style="text-align:left;width: 20%; text-align:right;">
+100,00 €
+</td>
+<td style="text-align:left;width: 15%; text-align:right;">
+200,00 €
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 45%; text-align:justify;">
+service2
+</td>
+<td style="text-align:left;width: 10%; text-align:right;">
+1.5
+</td>
+<td style="text-align:left;width: 10%; text-align:right;">
+</td>
+<td style="text-align:left;width: 20%; text-align:right;">
+50,00 €
+</td>
+<td style="text-align:left;width: 15%; text-align:right;">
+75,00 €
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class = "total">
+<table>
+<tbody>
+<tr>
+<td style="text-align:left;width: 57%; text-align:right; font-weight:bold;">
+Net à payer
+</td>
+<td style="text-align:left;width: 43%; text-align:right;">
+275,00 €
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> TVA non applicable, article 293B du CGI
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div class="comments">
+<p>Some comments</p>
+</div>
 </div>
 <div class="doc-footer">
 <div class="footquote">
-<p>Afin de valider ce devis, merci de le signer et le renvoyer à :</p>
+<p>Afin de valider ce devis, merci de le signer et le renvoyer à <a href="mailto:contact@benjaminlouis-stat.fr" class="email">contact@benjaminlouis-stat.fr</a> :</p>
 <div class="footbox">
 <p>Bon pour accord le :</p>
 <p>Signature :</p>

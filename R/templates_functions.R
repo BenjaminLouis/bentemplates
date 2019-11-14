@@ -78,36 +78,119 @@ process_address <- function(address, col_name = "Livraison") {
 }
 
 
-#' Process descritpion of services table for HTML
+#' Process services table
 #'
-#' @param services services list from YAML params
-#' @param tva yes/no
+#' @param services services list from YAML parameterss
+#' @param tva tva parameter
 #'
-#' @importFrom dplyr bind_rows mutate_at vars matches mutate tibble
+#' @importFrom dplyr as_tibble mutate_at vars mutate
 #' @importFrom kableExtra column_spec
 #' @importFrom knitr kable
 #'
 #' @export
 #'
-process_services <- function(services, tva = "no") {
-  data <- tibble('D\u00e9signation' = NA,#character(),
-                 'Quantit\u00e9' = NA,#double(),
-                 'Unit\u00e9' = NA,#character(),
-                 'Prix unitaire' = NA,#double(),
-                 'Total' = NA)#double())
-  if (any(!(services$data %in% c("NA", ""))) & any(!is.na(services$data))) {
-    temp <- services$data
-    colnames(temp) <- colnames(data)
-    data <- bind_rows(data, temp)
-    data <- data[-1,]
+process_services <- function(services, tva = "No") {
+  if (tva == "No") {
+    suffix <- NULL
+  } else if (tva == "Yes") {
+    suffix <- " HT"
   }
-  data %>%
-    mutate_at(vars(matches('Prix unitaire')), parse_amount) %>%
-    mutate('Total' = parse_amount(Total)) %>%
-    kable(format = "html", escape = FALSE) %>%
-    column_spec(column = 1, width = "40%", extra_css = "text-align:justify;") %>%
-    column_spec(column = 2, width = "13%", extra_css = "text-align:right;") %>%
-    column_spec(column = 3, width = "11%", extra_css = "text-align:right;") %>%
+  lapply(services, function(x) if (is.list(x)) { unlist(x$value) } else {x}) %>%
+    as_tibble() %>%
+    mutate(total = quantity*unitprice) %>%
+    mutate_at(vars(unitprice, total), parse_amount) %>%
+    mutate_all(~gsub("(^NA$|^$)", NA, .)) %>%
+    kable(format = "html", escape = FALSE, format.args = list(decimal.mark = ","),
+          col.names = c("D\u00e9signation", "Quantit\u00e9", "Unit\u00e9",
+                        paste0("Prix unit.", suffix), paste0("Total", suffix))) %>%
+    column_spec(column = 1, width = "45%", extra_css = "text-align:justify;") %>%
+    column_spec(column = 2, width = "10%", extra_css = "text-align:right;") %>%
+    column_spec(column = 3, width = "10%", extra_css = "text-align:right;") %>%
     column_spec(column = 4, width = "20%", extra_css = "text-align:right;") %>%
-    column_spec(column = 5, width = "16%", extra_css = "text-align:right;")
+    column_spec(column = 5, width = "15%", extra_css = "text-align:right;")
+}
+
+
+#' Process total table
+#'
+#' @param services services list from YAML params
+#' @param tva "Yes"/"No"
+#' @param discount discount rate (between 0 and 1)
+#' @param deposit deposit amount. Only for bills
+#'
+#' @importFrom kableExtra column_spec footnote
+#' @importFrom knitr kable
+#' @importFrom dplyr as_tibble mutate summarize rename mutate_if everything recode pull
+#' @importFrom tidyr pivot_longer
+#'
+#' @export
+#'
+process_total <- function(services, tva = "No", discount = 0, deposit = 0) {
+  if (tva == "No") {
+    suffix <- NULL
+  } else if (tva == "Yes") {
+    suffix <- " HT"
+  }
+  tot <- lapply(services, function(x) if (is.list(x)) { unlist(x$value) } else {x}) %>%
+    as_tibble() %>%
+    mutate(total = quantity*unitprice) %>%
+    summarize(total = sum(total))
+  if (discount > 0) {
+    if (discount > 1) {
+      stop("Discount should not be larger than 1 if you don't want to give money to your client...")
+    }
+    tot <- tot %>%
+      mutate(disc = paste0(100*discount, "%"),
+             disc_tot = (1 - discount)*total)
+  } else {
+    if (discount < 0) {
+      stop("A negative discount is not a discount...")
+    }
+    tot <- rename(tot, disc_tot = total)
+  }
+
+  if (tva == "Yes") {
+    tot <- tot %>%
+      mutate(tva = 0.2*disc_tot,
+             ttc_tot = 1.2*disc_tot)
+  }  else if (tva == "No") {
+    tot <- rename(tot, ttc_tot = disc_tot)
+  }
+
+  if (deposit > 0) {
+    if (deposit > pull(tot, ttc_tot)) {
+      stop("Are you sure your client paid a deposit larger than the total amount ?")
+    }
+    tot <- tot %>%
+      mutate(deposit = deposit,
+             to_pay = ttc_tot - deposit)
+  } else {
+    if (deposit < 0) {
+      stop("A negative deposit means you lend money to your client...")
+    }
+  }
+
+  rname <- c(total = paste0("Total", suffix),
+             disc = "Remise",
+             disc_tot = paste0("Total remis\u00e9", suffix),
+             tva = "TVA (20%)",
+             ttc_tot = if (tva == "No") {"Net \u00e0 payer"} else {"Total TTC"},
+             deposit = "Acompte",
+             to_pay = if (tva == "No") {"Reste \u00e0 payer"} else {"Reste \u00e0 payer TTC"})
+
+ ktab <- tot %>%
+    mutate_if(is.numeric, parse_amount) %>%
+    pivot_longer(everything(), names_to = "key", values_to = "values") %>%
+    mutate(key = recode(key, !!!rname)) %>%
+    kable(format = "html", escape = FALSE) %>%
+    column_spec(column = 1, width = "57%", extra_css = "text-align:right; font-weight:bold;") %>%
+    column_spec(column = 2, width = "43%", extra_css = "text-align:right;") %>%
+    remove_header()
+ if (tva == "No") {
+   ktab %>%
+     footnote(general = "TVA non applicable, article 293B du CGI",
+              general_title = "")
+ } else {
+   ktab
+ }
 }
