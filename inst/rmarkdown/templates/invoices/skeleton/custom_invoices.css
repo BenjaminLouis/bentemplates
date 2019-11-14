@@ -190,18 +190,18 @@ body {
   text-align: right;
 }
 
-.description {
+.comments {
   grid-column: col1-start / col5-end;
   grid-row: row1-start / row1-end;
 }
 
-.total {
-  grid-column: col4-start / col5-end;
+.description {
+  grid-column: col1-start / col5-end;
   grid-row: row2-start / row2-end;
 }
 
-.comments {
-  grid-column: col1-start / col5-end;
+.total {
+  grid-column: col4-start / col5-end;
   grid-row: row3-start / row3-end;
 }
 
@@ -220,14 +220,23 @@ body {
 }
 
 
-.footbox {
-  border: 1px solid black;
-  height: 35mm;
-  width: 90%;
-  vertical-align: top;
+.footquote {
+  font-size: 10pt;
+  line-height: 15px;
 }
 
-.footbox > p {
+.footquote table {
+  font-weight: bold;
+  font-size: 9pt;
+  border: none;
+}
+
+.footquote td {
+  background-color: white;
+}
+
+
+.footquote > p {
   margin: 0;
   padding: 1mm;
 }
@@ -252,8 +261,6 @@ body {
 }
 
 
-
-
 /*--------------------------------------------------------------------------------*/
 /*
 :root {
@@ -262,7 +269,7 @@ body {
 
 @page {
   size: A4;
-  margin: 1cm 1cm;
+  margin: 1cm;
   background-image: var(--main-bg-image);
   background-repeat: no-repeat;
   background-color: white;

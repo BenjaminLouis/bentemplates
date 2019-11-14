@@ -194,3 +194,51 @@ process_total <- function(services, tva = "No", discount = 0, deposit = 0) {
    ktab
  }
 }
+
+
+
+#' Process bank information for invoices
+#'
+#' @param bankinfo bank info list from YAML params
+#'
+#' @importFrom dplyr as_tibble mutate_all rename everything mutate
+#' @importFrom tidyr pivot_longer drop_na
+#' @importFrom knitr kable
+#'
+#' @export
+#'
+process_bank <- function(bankinfo) {
+  as_tibble(bankinfo) %>%
+    mutate_all(~gsub("(^NA$|^$)", NA, .)) %>%
+    rename(Titulaire = holder, Banque = bank, BIC = bic, IBAN = iban) %>%
+    pivot_longer(everything(), names_to = "key", values_to = "value") %>%
+    drop_na() %>%
+    mutate(key = paste0(key, " :")) %>%
+    kable("html", escape = FALSE) %>%
+    remove_header()
+}
+
+
+#' Internal function to process annexes. Do not use outside
+#'
+#' @param file character. Path of the annexes file
+#'
+#' @importFrom rmarkdown render
+#' @importFrom xml2 read_html xml_find_all xml_children xml_new_root xml_add_child xml_remove
+#' @importFrom purrr walk
+#' @importFrom htmltools HTML
+#'
+#' @export
+#'
+process_annexes <- function(file) {
+  temphtml <- normalizePath(file.path(tempdir(), "annexes.html"), mustWork = FALSE, winslash = "/")
+  render(file, output_format = "html_document", output_file = temphtml,
+         envir = new.env(parent = globalenv()), quiet = TRUE)
+
+  toadd <- read_html(temphtml) %>% xml_find_all(".//body") %>% xml_children()
+  newroot <- xml_new_root("div", class = "newpage")
+  walk(toadd, ~xml_add_child(.x = newroot, .value = .x))
+  walk(xml_find_all(newroot, "script"), xml_remove)
+  HTML(gsub("<\\?xml.+\\?>\n", "", as.character(newroot)))
+}
+

@@ -14,10 +14,14 @@ Depends:
 Imports: 
     dplyr,
     fontawesome,
+    htmltools,
     kableExtra,
     knitr,
     magrittr,
-    tidyr
+    purrr,
+    rmarkdown,
+    tidyr,
+    xml2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

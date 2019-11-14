@@ -10,6 +10,9 @@ usethis::use_directory(("inst/rmarkdown/templates"))
 usethis::use_directory(("inst/rmarkdown/templates/quotes"))
 usethis::use_directory(("inst/rmarkdown/templates/quotes/skeleton"))
 
+# Quotes
+usethis::use_directory(("inst/rmarkdown/templates/invoices"))
+usethis::use_directory(("inst/rmarkdown/templates/invoices/skeleton"))
 
 # Dependencies
 usethis::use_pipe()

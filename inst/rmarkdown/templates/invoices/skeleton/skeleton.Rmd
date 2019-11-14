@@ -2,12 +2,12 @@
 output:
   pagedown::html_letter:
     self_contained: false
-    css: ["default","default-fonts","custom_quotes.css"]
+    css: ["default","default-fonts","custom_invoices.css"]
 params:
   info:
     value:
       date: NA
-      doc: "Devis"
+      doc: "Facture"
       ndoc: "N0001"
       nclient: "C0001"
   freelance:
@@ -39,6 +39,17 @@ params:
       city: "Testcity"
       mobile: "+33(0)6 00 00 00 00"
       e_mail: "contact@email.com"
+  billing:
+    value:
+      company: NA
+      department: NA
+      siret: NA
+      address1: "1 rue fictive"
+      address2: "test"
+      postal_code: "01000"
+      city: "Testcity"
+      mobile: "+33(0)6 00 00 00 00"
+      e_mail: "contact@email.com"
   comment: "Some comments"
   services:
     value:
@@ -49,6 +60,12 @@ params:
   tva: "No"
   discount: 0
   deposit: 0
+  bankinfo:
+    value:
+      holder: "HOLDER"
+      bank: "Bank of fake"
+      bic: "CCHAJUSAHXX"
+      iban: "FR** **** **** **** **** **** ***"
   annexes:
     value:
       isannexes: "No"
@@ -123,6 +140,8 @@ library(bentemplates)
 <div class = "address">
 <div class = "box">
 `r process_address(params$client, col_name = "Client")`
+
+`r process_address(params$billing, col_name = "Facturation")`
 </div>
 </div>
 
@@ -137,6 +156,10 @@ library(bentemplates)
 
 <div class = "doc-main">
 
+<div class = "comments">
+`r params$comment`
+</div>
+
 <div class = "description">
 `r process_services(services = params$services, tva = params$tva)`
 ```{r}
@@ -146,10 +169,6 @@ services = params$services
 
 <div class = "total">
 `r process_total(services = params$services, tva = params$tva, deposit = params$deposit, discount = params$discount)`
-</div>
-
-<div class = "comments">
-`r params$comment`
 </div>
 
 </div>
@@ -164,13 +183,9 @@ services = params$services
 <div class = "doc-footer">
 
 <div class = "footquote">
-Afin de valider ce devis, merci de le signer et le renvoyer à `r params$freelance$e_mail` :
+Merci d'effectuer le paiement à réception de la facture par virement bancaire en utilisant les coordonnées ci-dessous et en précisant le numéro de la facture dans le libellé :
 
-<div class = "footbox">
-Bon pour accord le :
-
-Signature :
-</div>
+`r process_bank(bankinfo = params$bankinfo)`
 
 </div>
 </div>
