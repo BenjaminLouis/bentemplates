@@ -168,6 +168,7 @@ body {
   color: rgb(230,230,230);
   border-left: 2px solid rgb(23,37,45);
   border-right: 2px solid rgb(23,37,45);
+  text-align: center;
 }
 
 .doc-main th {
@@ -185,7 +186,7 @@ body {
 }
 
 .doc-main tfoot {
-  background: white;
+  background: none;
   font-size: 9pt;
   text-align: right;
 }
@@ -203,6 +204,13 @@ body {
 .comments {
   grid-column: col1-start / col5-end;
   grid-row: row3-start / row3-end;
+  line-height: 1em;
+}
+
+.comments > p:first-child:before {
+  content: "Commentaire :";
+  display: block;
+  font-weight: bold;
 }
 
 /* FOOTNOTE */

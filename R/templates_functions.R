@@ -44,8 +44,8 @@ process_boxheader <- function(info, which) {
     tobox <- paste0("<p>N\u00b0 " , info$doc, "</p><hr><p>", info$ndoc, "</p>")
   } else if (which == 3) {
     nclient <- unlist(strsplit(info$nclient, split = "\n"))
-    nclient <- paste0("<p>", nclient, "</p>", collapse = "")
-    tobox <- paste0("<p>N\u00b0 Client", "<hr>", nclient)
+    nclient <- paste0(nclient, collapse = "<p>")
+    tobox <- paste0("<p>N\u00b0 Client", "</p><hr><p>", nclient, "</p>")
   }
   return(tobox)
 }
