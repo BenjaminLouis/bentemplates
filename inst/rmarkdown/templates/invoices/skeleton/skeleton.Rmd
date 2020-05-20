@@ -20,7 +20,7 @@ params:
       mobile: "+33(0)6 47 94 72 38"
       e_mail: "contact@benjaminlouis-stat.fr"
       web: "www.benjaminlouis-stat.fr"
-      siret: "831 872 916 00026"
+      siret: "831 872 916 00034"
   logos: 
     value:
       company: TRUE
