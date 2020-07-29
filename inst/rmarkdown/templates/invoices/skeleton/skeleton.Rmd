@@ -3,6 +3,7 @@ output:
   pagedown::html_letter:
     self_contained: false
     css: ["default","default-fonts","custom_invoices.css"]
+knit: pagedown::chrome_print
 params:
   info:
     value:

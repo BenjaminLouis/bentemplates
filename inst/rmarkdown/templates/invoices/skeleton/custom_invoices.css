@@ -13,6 +13,7 @@ body {
 .newpage {
   page-break-before: always;
   text-align: justify;
+  text-align-last: left;
 }
 
 /*########################*/
@@ -99,7 +100,7 @@ body {
 /* Address item */
 
 .address {
-  grid-column: col3-start / col5-end;
+  grid-column: col2-start / col6-end;
   grid-row: row4-start / row4-end;
   justify-self: center;
   margin: 0;
@@ -341,4 +342,10 @@ td {
   margin: 0;
   padding: 0;
   background: none;
+}
+
+
+
+.break-before-me {
+  break-before: page;
 }
