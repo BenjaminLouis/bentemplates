@@ -91,9 +91,9 @@ library(bentemplates)
 `r paste0(params$info$doc, " n° ", params$info$ndoc)`
 :::
 
----
-# I can't find a way to move what's following in the CSS file
----
+<!-- --- -->
+<!-- # I can't find a way to move what's following in the CSS file -->
+<!-- --- -->
 <style>
 :root {
   --main-bg-image: `r if (params$logos$backgound) paste0("url('", params$logos$background_file,"')")`;
@@ -103,17 +103,17 @@ library(bentemplates)
 
 
 <div class = "wrapper">
----
-#######################################
-############# HEADER ##################
-#######################################
----
+<!-- --- -->
+<!-- ####################################### -->
+<!-- ############# HEADER ################## -->
+<!-- ####################################### -->
+<!-- --- -->
 
 <div class = "doc-header">
 
----
-# Freelance info
----
+<!-- --- -->
+<!-- # Freelance info -->
+<!-- --- -->
 <div class = "freelance">
 <div class = "logo">
 ![](`r if (params$logos$company) params$logos$company_file`)
@@ -122,9 +122,9 @@ library(bentemplates)
 </div>
 </div>
 
----
-# Document info
----
+<!-- --- -->
+<!-- # Document info -->
+<!-- --- -->
 <div class = "info-box-date boxheader">
 `r process_boxheader(params$info, which = 1)`
 </div>
@@ -135,9 +135,9 @@ library(bentemplates)
 `r process_boxheader(params$info, which = 3)`
 </div>
 
----
-# Client info
----
+<!-- --- -->
+<!-- # Client info -->
+<!-- --- -->
 <div class = "address">
 <div class = "box">
 `r process_address(params$client, col_name = "Client")`
@@ -149,11 +149,11 @@ library(bentemplates)
 </div>
 
 
----
-#######################################
-############### MAIN ##################
-#######################################
----
+<!-- --- -->
+<!-- ####################################### -->
+<!-- ############### MAIN ################## -->
+<!-- ####################################### -->
+<!-- --- -->
 
 <div class = "doc-main">
 
@@ -175,11 +175,11 @@ services = params$services
 </div>
 
 
----
-#######################################
-############# FOOTER ##################
-#######################################
----
+<!-- --- -->
+<!-- ####################################### -->
+<!-- ############# FOOTER ################## -->
+<!-- ####################################### -->
+<!-- --- -->
 
 <div class = "doc-footer">
 
@@ -195,11 +195,11 @@ Merci d'effectuer le paiement à réception de la facture par virement bancaire 
 </div>
 
 
----
-################♠########################
-############# ANNEXES ##################
-########################################
----
+<!-- --- -->
+<!-- ################♠######################## -->
+<!-- ############# ANNEXES ################## -->
+<!-- ######################################## -->
+<!-- --- -->
 
 ```{r echo = FALSE, eval = params$annexes$isannexes == "Yes"}
 process_annexes(file = params$annexes$pathannexes)
